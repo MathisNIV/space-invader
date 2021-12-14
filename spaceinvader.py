@@ -22,10 +22,7 @@ class Mafenetre(tk.Frame):
         quitter.pack(side = "right")
         
     
-    
-    
-    
-    
+
 root = tk.Tk()
 root.title('space invader')
 Mafenetre(root).pack()
