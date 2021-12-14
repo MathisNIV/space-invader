@@ -1,7 +1,7 @@
 """
-auteur : Rodolphe Lajugie
+Auteur : Rodolphe Lajugie
     
-date de création : 14 décembre 2021
+Date de création : 14 décembre 2021
 """
     
 class Vaisseau():
