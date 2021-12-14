@@ -19,19 +19,23 @@ class Alien():
         
     def deplacement(self):
         
-        sens = 2
-        allez = 0
-        
-        while self.x1 <= 400 : # 400 = taille fenetre
-            self.x0 = self.x0 + sens * self.dx
-            if self.x1 == 400:
-                print( 'oK')
-        sens = -1
-        while self.X0 > 0 :
-            
-            self.x0 = self.x0 + sens * self.dx
+        sens = 1
+        ar=0
+        while self.y0 < 720:
+            while self.x1 < 400 : # 400 = taille fenetre
+                self.x1 = self.x1 + sens * self.dx
+                if self.x1 >= 400:
+                    print( 'OK')
+                    print('a droite', self.x1)
+            while self.x1 > 0 :
+                
+                self.x1 = self.x1 - sens * self.dx
+            print('a gauche', self.x1)
             if self.x1 == 0:
-                print( 'oK')
+                ar=1
+                self.y0 += self.dy
+                print('ok')
+                print('y0',self.y0)
         return 
     
     def pvAlien(self):

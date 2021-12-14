@@ -43,6 +43,4 @@ class Vaisseau():
         else:
             print("impossible, mort")
         return self.vie
-    
-    test=0
 
