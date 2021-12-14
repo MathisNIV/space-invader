@@ -17,6 +17,16 @@ def spawn(ship,width,height):
     vaisseau = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "pink" )
     return vaisseau
 
+
+#fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau
+def mvmt_vaisseau_droite(event,vaisseau):
+    canvas.move(vaisseau,10,0)
+def mvmt_vaisseau_gauche(event,vaisseau):
+    canvas.move(vaisseau,-10,0)
+def mvmt_vaisseau_tire(event):
+    print('espace')
+
+    
 #variable
 
 width = 1080
@@ -29,6 +39,7 @@ root = tk.Tk()
 root.title("Space Invader")
 
 
+
 frame1 = tk.Frame(root)
 frame1.pack(side = 'left')
 
@@ -36,7 +47,7 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
-spawn(creavaisseau(),width,height)
+objvaisseau = spawn(creavaisseau(),width,height)
 canvas.pack()
 
 score_label = tk.Label(frame2, text = "score : 100")
@@ -53,5 +64,9 @@ ng.pack()
 
 quitter = tk.Button(frame2, text = "Quit", command = lambda : root.destroy())
 quitter.pack()
+
+root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau))
+root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau))
+root.bind("<space>",mvmt_vaisseau_tire)
 
 root.mainloop()
