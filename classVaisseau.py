@@ -7,8 +7,8 @@ Date de création : 14 décembre 2021
 class Vaisseau():
     
     def __init__(self):
-        self.taille_x = 20
-        self.taille_y = 20
+        self.taille_x = 100
+        self.taille_y = 30
         self.max_vie = 90
         self.vie = 90
         self.position_x = 540
