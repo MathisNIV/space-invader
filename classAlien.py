@@ -26,13 +26,11 @@ class Alien():
             while self.x1 < 400 : # 400 = taille fenetre
                 self.x1 = self.x1 + sens * self.dx
                 if self.x1 >= 400:
-                    print('a droite', self.x1)
+
             while self.x1 > 0 :
                 self.x1 = self.x1 - sens * self.dx
             if self.x1 == 0:
-                self.y0 += self.dy
-                print('a gauche', self.x1)
-                print('y0',self.y0)
+
         return 
     
     def perde_pvAlien(self):
