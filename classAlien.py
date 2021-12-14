@@ -15,26 +15,38 @@ class Alien():
         self.y1 = self.y0 + 20
         self.dx = 20
         self.dy = 20
-        self.taille = self.x1 - self.x0
+        self.taille_x = self.x1 - self.x0
+        self.taille_y = self.y1 - self.y0
         
     def deplacement(self):
         
-        sens = 2
-
-        while self.x0 <= 400 : # 400 = taille fenetre
-            while self.x0 >= 0 :
-                self.x0 = self.x0 + sens * self.dx
-                if self.x1 <= 0:
-                    print( 'oK2')
-            if self.x0 >= 400:
-                print( 'oK1')
-            self.x0 = self.x0 + sens * self.dx
-        sens = -1
-
+        sens = 1
+        
+        while self.y0 < 720:
+            while self.x1 < 400 : # 400 = taille fenetre
+                self.x1 = self.x1 + sens * self.dx
+                if self.x1 >= 400:
+                    print('a droite', self.x1)
+            while self.x1 > 0 :
+                self.x1 = self.x1 - sens * self.dx
+            if self.x1 == 0:
+                self.y0 += self.dy
+                print('a gauche', self.x1)
+                print('y0',self.y0)
         return 
     
-    def pvAlien(self):
-        self.pv = -1
+    def perde_pvAlien(self):
+        if self.pv > 0:
+            self.pv = -1
+        return self.pv
+    
+    def get_position(self):
+        return [self.x0, self.y0]
+    
+    def get_taille(self):
+        return [self.taille_x, self.taille_y]
+    
+    def get_pvAlien(self):
         return self.pv
     
     
