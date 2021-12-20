@@ -8,6 +8,10 @@ Created on Tue Dec 14 09:38:01 2021
 import tkinter as tk
 import classVaisseau as cv
 
+
+
+
+'''ces deux fonctions recupèrent un objet de la classe vaisseau et l'initialisent dans la canvas'''
 def creavaisseau():
     ship = cv.Vaisseau()
     return ship
@@ -18,7 +22,10 @@ def spawn(ship,width,height):
     return vaisseau
 
 
-#fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau
+
+
+
+'''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
 def mvmt_vaisseau_droite(event,vaisseau):
     canvas.move(vaisseau,10,0)
 def mvmt_vaisseau_gauche(event,vaisseau):
@@ -26,15 +33,18 @@ def mvmt_vaisseau_gauche(event,vaisseau):
 def mvmt_vaisseau_tire(event):
     print('espace')
 
-    
-#variable
 
+
+    
+'''variables'''
 width = 1080
 height = 720
 
 
-#Création de la fenerte tkinter
 
+
+
+'''Création de la fenerte tkinter'''
 root = tk.Tk()
 root.title("Space Invader")
 
