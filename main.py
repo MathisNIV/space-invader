@@ -2,7 +2,7 @@
 """
 Created on Tue Dec 14 09:38:01 2021
 
-@author: mathi
+@author: mathis Niveau
 """
 
 import tkinter as tk
