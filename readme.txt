@@ -21,5 +21,3 @@ ennemi bonus
 scoreboard
 transformer alien en image
 menu a choix multiple
-
-test

@@ -8,6 +8,8 @@ Created on Tue Dec 14 09:38:17 2021
 
 class Alien():
     def __init__(self):
+        self.taille_x = 30
+        self.taille_y = 30
         self.pv = 5
         self.x0 = 0
         self.y0 = 0 
@@ -16,9 +18,11 @@ class Alien():
         self.dx = 20
         self.dy = 20
         self.taille = self.x1 - self.x0
+
+    def get_taille(self):
+        return [self.taille_x,self.taille_y]
         
     def deplacement(self):
-        
         sens = 1
         ar=0
         while self.y0 < 720:
@@ -41,7 +45,3 @@ class Alien():
     def pvAlien(self):
         self.pv = -1
         return self.pv
-    
-    
-a = Alien()
-a.deplacement()

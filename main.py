@@ -7,20 +7,30 @@ Created on Tue Dec 14 09:38:01 2021
 
 import tkinter as tk
 import classVaisseau as cv
+import classAlien as ca
 
 
 
 
 '''ces deux fonctions recupèrent un objet de la classe vaisseau et l'initialisent dans la canvas'''
-def creavaisseau():
+def crea_vaisseau():
     ship = cv.Vaisseau()
     return ship
 
-def spawn(ship,width,height):
+def spawn_v(ship,width,height):
     taille = ship.get_taille()
     vaisseau = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "pink" )
     return vaisseau
 
+
+def crea_alien():
+    alien = ca.Alien()
+    return alien
+
+def spawn_a(alien):
+    taille  = alien.get_taille()
+    aliend = canvas.create_rectangle(20,20,20+taille[0],20 + taille[1])
+    return aliend
 
 
 
@@ -37,6 +47,7 @@ def mvmt_vaisseau_tire(event):
 
     
 '''variables'''
+#taille écran
 width = 1080
 height = 720
 
@@ -57,7 +68,7 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
-objvaisseau = spawn(creavaisseau(),width,height)
+objvaisseau = spawn_v(crea_vaisseau(),width,height)
 canvas.pack()
 
 score_label = tk.Label(frame2, text = "score : 100")
