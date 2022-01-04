@@ -8,6 +8,7 @@ Created on Tue Dec 14 09:38:01 2021
 import tkinter as tk
 import classVaisseau as cv
 import classAlien as ca
+import projectile as proj
 
 
 
@@ -23,6 +24,7 @@ def spawn_v(ship,width,height):
     return vaisseau
 
 
+
 def crea_alien():
     alien = ca.Alien()
     return alien
@@ -30,10 +32,15 @@ def crea_alien():
 def spawn_a(alien,marge_gauche,marge_haute):
     taille  = alien.get_taille()
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1])
-    
     return aliend
 
-
+def crea_projectile():
+    tir = proj.Projectile(540,700)
+    return tir
+def spawn_p(tir):
+    taille = tir.get_taille()
+    projectile = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "black" )
+    return projectile
 
 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
@@ -43,6 +50,8 @@ def mvmt_vaisseau_gauche(event,vaisseau):
     canvas.move(vaisseau,-10,0)
 def mvmt_vaisseau_tire(event):
     print('espace')
+    proj.Projectile().deplacement
+
 
 
 
@@ -95,6 +104,6 @@ quitter.pack()
 
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau))
 root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau))
-root.bind("<space>",mvmt_vaisseau_tire)
+root.bind("<space>", lambda : spawn_p(crea_projectile()))
 
 root.mainloop()

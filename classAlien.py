@@ -10,7 +10,7 @@ class Alien():
     def __init__(self):
         self.taille_x = 30
         self.taille_y = 30
-        self.pv = 5
+        self.pv = 3
         self.x0 = 0
         self.y0 = 0 
         self.x1 = self.x0 + 20
