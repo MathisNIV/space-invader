@@ -32,5 +32,4 @@ class Projectile():
             self.position_y = self.position_y - self.vitesse
             blo = self.bolPos()
             print(blo, self.position_y)
-        
         return self.position_y
