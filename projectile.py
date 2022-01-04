@@ -34,4 +34,9 @@ class Projectile():
             print(blo, self.position_y)
         
         return self.position_y
+<<<<<<< HEAD
         
+=======
+
+        #le détruire ( voir si cette boucle sera utile dans la main loop)        
+>>>>>>> cbeee5ae4b84529f23f48d11daf8f9e70fc0dbc2

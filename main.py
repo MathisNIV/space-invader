@@ -42,7 +42,6 @@ def spawn_p(tir):
     projectile = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "black" )
     return projectile
 
-
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
 def mvmt_vaisseau_droite(event,vaisseau):
     canvas.move(vaisseau,10,0)
@@ -84,7 +83,15 @@ esp=0
 for i in range(nb_alien):
     objalien = spawn_a(crea_alien(), 20+esp, 20)
     esp+=esp_par_alien+ca.Alien().get_taille()[0]
+    if i == 0:
+        x1=20
+        y1=20
+    if i == nb_alien-1:
+        x2=x1+esp-esp_par_alien
+        y2=20+ca.Alien().get_taille()[1]
+
 objvaisseau = spawn_v(crea_vaisseau(),width,height)
+rec=canvas.create_rectangle(x1,y1,x2,y2)
 canvas.pack()
 
 score_label = tk.Label(frame2, text = "score : 100")
