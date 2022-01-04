@@ -27,9 +27,10 @@ def crea_alien():
     alien = ca.Alien()
     return alien
 
-def spawn_a(alien):
+def spawn_a(alien,marge_gauche,marge_haute):
     taille  = alien.get_taille()
-    aliend = canvas.create_rectangle(20,20,20+taille[0],20 + taille[1])
+    aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1])
+    
     return aliend
 
 
@@ -50,7 +51,9 @@ def mvmt_vaisseau_tire(event):
 #taille écran
 width = 1080
 height = 720
-
+nb_alien=11
+esp_tot_alien=width-2*20-nb_alien*crea_alien().get_taille()[0]
+esp_par_alien=int(esp_tot_alien/nb_alien)
 
 
 
@@ -68,7 +71,10 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
-objalien = spawn_a(crea_alien())
+esp=0
+for i in range(nb_alien):
+    objalien = spawn_a(crea_alien(), 20+esp, 20)
+    esp+=esp_par_alien+ca.Alien().get_taille()[0]
 objvaisseau = spawn_v(crea_vaisseau(),width,height)
 canvas.pack()
 
