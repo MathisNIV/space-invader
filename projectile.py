@@ -18,23 +18,25 @@ class Projectile():
         return [self.taille_x, self.taille_y]
         
     def bolPos(self):
-        bol=False
-        if (self.position_y) >= 720 :
-            bol = True
-        return bol
+        blo=False
+        if self.position_y < 0 :
+            blo = True
+        return blo
+    
+    def getPuissance(self):
+        return self.puissance
     
     def getPos(self):
         return self.position_y
     
     def deplacement(self):
-        blo=False
+        blo=self.bolPos()
         while blo != True:
-            b = Projectile(self.position_x, self.position_y)
-            blo = b.bolPos()
-            self.position_y -= self.vitesse
-            blo = b.bolPos()
+            self.position_y = self.position_y - self.vitesse
+            blo = self.bolPos()
             print(blo, '\npos y ', self.position_y)
         
         return self.position_y
 
-        #le détruire
+        #le détruire ( voir si cette boucle sera utile dans la main loop)
+        

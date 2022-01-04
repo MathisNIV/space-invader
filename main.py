@@ -68,6 +68,7 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
+objalien = spawn_a(crea_alien())
 objvaisseau = spawn_v(crea_vaisseau(),width,height)
 canvas.pack()
 
