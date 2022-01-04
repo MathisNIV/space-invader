@@ -38,5 +38,4 @@ class Projectile():
         
         return self.position_y
 
-        #le détruire ( voir si cette boucle sera utile dans la main loop)
-        
+        #le détruire ( voir si cette boucle sera utile dans la main loop)        

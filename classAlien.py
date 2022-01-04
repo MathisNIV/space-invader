@@ -5,6 +5,7 @@ Created on Tue Dec 14 09:38:17 2021
 
 @author: maximilienremillieux
 """
+import time as t
 
 class Alien():
     def __init__(self):
@@ -27,21 +28,17 @@ class Alien():
         ar=0
         while self.y0 < 720:
             while self.x1 < 400 : # 400 = taille fenetre
+                t.sleep(0.5)
                 self.x1 = self.x1 + sens * self.dx
-                if self.x1 >= 400:
-                    print( 'OK')
-                    print('a droite', self.x1)
             while self.x1 > 0 :
-                
+                t.sleep(0.5)    
                 self.x1 = self.x1 - sens * self.dx
-            print('a gauche', self.x1)
             if self.x1 == 0:
-                ar=1
-                self.y0 += self.dy
-                print('ok')
-                print('y0',self.y0)
-        return 
+                ar+=1
+                self.y0 += 9*self.dy
+        return ar 
     
     def pvAlien(self):
         self.pv = -1
         return self.pv
+    
