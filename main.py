@@ -39,7 +39,10 @@ def crea_projectile():
     return tir
 def spawn_p(tir):
     taille = tir.get_taille()
-    projectile = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "black" )
+    projectile = canvas.create_rectangle(width/2 - taille[0]/2 , height-taille[1]-cv.Vaisseau().get_taille()[1], width/2 + taille[0]/2 , height-cv.Vaisseau().get_taille()[1], fill = "black" )
+    if True:
+        root.after(15,canvas.move(projectile,0,-20))
+        #a finir
     return projectile
 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
@@ -47,11 +50,14 @@ def mvmt_vaisseau_droite(event,vaisseau):
     canvas.move(vaisseau,10,0)
 def mvmt_vaisseau_gauche(event,vaisseau):
     canvas.move(vaisseau,-10,0)
-def mvmt_vaisseau_tire(event):
+def mvmt_vaisseau_tire():
     print('espace')
-    proj.Projectile().deplacement
 
 
+
+def projectile():
+    spawn_p(crea_projectile())
+    mvmt_vaisseau_tire()
 
 
     
@@ -69,7 +75,6 @@ esp_par_alien=int(esp_tot_alien/nb_alien)
 '''Création de la fenerte tkinter'''
 root = tk.Tk()
 root.title("Space Invader")
-
 
 
 frame1 = tk.Frame(root)
@@ -91,12 +96,12 @@ for i in range(nb_alien):
         y2=20+ca.Alien().get_taille()[1]
 
 objvaisseau = spawn_v(crea_vaisseau(),width,height)
-rec=canvas.create_rectangle(x1,y1,x2,y2)
+rec = canvas.create_rectangle(x1,y1,x2,y2)
 canvas.pack()
+
 
 score_label = tk.Label(frame2, text = "score : 100")
 score_label.pack()
-
 
 vie_label = tk.Label(frame2, text = "vie = 3")
 vie_label.pack()
@@ -111,6 +116,6 @@ quitter.pack()
 
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau))
 root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau))
-root.bind("<space>", lambda : spawn_p(crea_projectile()))
+root.bind("<space>", lambda _ : projectile())
 
 root.mainloop()

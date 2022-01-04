@@ -12,7 +12,7 @@ class Projectile():
         self.position_x=pX
         self.position_y=pY
         self.taille_x=3
-        self.taille_y=3
+        self.taille_y=20
     
     def get_taille(self):
         return [self.taille_x, self.taille_y]
@@ -27,7 +27,7 @@ class Projectile():
         return self.puissance
     
     def deplacement(self):
-        blo=self.bolPos()
+        blo = self.bolPos()
         while blo != True:
             self.position_y = self.position_y - self.vitesse
             blo = self.bolPos()
