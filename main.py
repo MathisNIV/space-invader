@@ -6,11 +6,9 @@ Created on Tue Dec 14 09:38:01 2021
 """
 
 import tkinter as tk
-import classVaisseau as cv
+import classVaisseau as cv 
 import classAlien as ca
-import projectile as proj
-
-
+import classProjectile as proj
 
 
 '''ces deux fonctions recupèrent un objet de la classe vaisseau et l'initialisent dans la canvas'''
@@ -25,6 +23,7 @@ def spawn_v(ship,width,height):
 
 
 
+
 def crea_alien():
     alien = ca.Alien()
     return alien
@@ -34,20 +33,22 @@ def spawn_a(alien,marge_gauche,marge_haute):
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1])
     return aliend
 
+
+
 def crea_projectile():
     tir = proj.Projectile(540,700)
     return tir
 def spawn_p(tir):
     taille = tir.get_taille()
     projectile = canvas.create_rectangle(width/2 - taille[0]/2 , height-taille[1]-cv.Vaisseau().get_taille()[1], width/2 + taille[0]/2 , height-cv.Vaisseau().get_taille()[1], fill = "black" )
-    if True:
-        root.after(15,canvas.move(projectile,0,-20))
-        #a finir
-    return projectile
+    print(tir.get_position())
+    root.after(15,canvas.move(projectile,0,-20))
+    
+
 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
 def mvmt_vaisseau_droite(event,vaisseau):
-    canvas.move(vaisseau,10,0)
+    canvas.move(vaisseau,10,0)  
 def mvmt_vaisseau_gauche(event,vaisseau):
     canvas.move(vaisseau,-10,0)
 def mvmt_vaisseau_tire():
