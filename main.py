@@ -12,22 +12,18 @@ import projectile as proj
 
 
 
+
 '''ces deux fonctions recupèrent un objet de la classe vaisseau et l'initialisent dans la canvas'''
 def crea_vaisseau():
     ship = cv.Vaisseau()
     return ship
 
-def spawn_vaisseau(ship,width,height):
+def spawn_v(ship,width,height):
     taille = ship.get_taille()
     vaisseau = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "pink" )
     return vaisseau
 
-'''fonction pour les aliens'''
-def spawn_alien(alien,nombre_alien,width,height):
-    taille = ca.get_taille()
-    alien = canvas.create_rectangle(width/3 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "blue" )
-    return alien
-        
+
 
 def crea_alien():
     alien = ca.Alien()
@@ -88,7 +84,6 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
-objvaisseau = spawn_vaisseau(crea_vaisseau(),width,height)
 esp=0
 for i in range(nb_alien):
     objalien = spawn_a(crea_alien(), 20+esp, 20)
@@ -100,7 +95,7 @@ for i in range(nb_alien):
         x2=x1+esp-esp_par_alien
         y2=20+ca.Alien().get_taille()[1]
 
-objvaisseau = spawn_vaisseau(crea_vaisseau(),width,height)
+objvaisseau = spawn_v(crea_vaisseau(),width,height)
 rec = canvas.create_rectangle(x1,y1,x2,y2)
 canvas.pack()
 

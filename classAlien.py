@@ -9,15 +9,9 @@ import time as t
 
 class Alien():
     def __init__(self):
-<<<<<<< HEAD
-        self.taille_x = 100
-        self.taille_y = 30
-        self.pv = 5
-=======
         self.taille_x = 30
         self.taille_y = 30
         self.pv = 3
->>>>>>> 4dd339c8178928a47fa8f38d56c50a3a92ebcbdd
         self.x0 = 0
         self.y0 = 0 
         self.x1 = self.x0 + 20
@@ -28,13 +22,7 @@ class Alien():
 
     def get_taille(self):
         return [self.taille_x,self.taille_y]
-        
-<<<<<<< HEAD
-    def get_taille(self):
-        return [self.taille_x,self.taille_y]
-        
-=======
->>>>>>> 4dd339c8178928a47fa8f38d56c50a3a92ebcbdd
+
     def deplacement(self):
         sens = 1
         ar=0
