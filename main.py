@@ -7,7 +7,13 @@ Created on Tue Dec 14 09:38:01 2021
 
 import tkinter as tk
 import classVaisseau as cv
+<<<<<<< HEAD
 import classAlien as al
+=======
+import classAlien as ca
+import projectile as proj
+
+>>>>>>> 4dd339c8178928a47fa8f38d56c50a3a92ebcbdd
 
 
 
@@ -16,11 +22,16 @@ def crea_vaisseau():
     ship = cv.Vaisseau()
     return ship
 
+<<<<<<< HEAD
 def spawn_vaisseau(ship,width,height):
+=======
+def spawn_v(ship,width,height):
+>>>>>>> 4dd339c8178928a47fa8f38d56c50a3a92ebcbdd
     taille = ship.get_taille()
     vaisseau = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "pink" )
     return vaisseau
 
+<<<<<<< HEAD
 '''fonction pour les aliens'''
 def crea_alien():
     alien = al.Alien()
@@ -30,24 +41,58 @@ def spawn_alien(alien,nombre_alien,width,height):
     alien = canvas.create_rectangle(width/3 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "blue" )
     return alien
         
+=======
 
+
+def crea_alien():
+    alien = ca.Alien()
+    return alien
+>>>>>>> 4dd339c8178928a47fa8f38d56c50a3a92ebcbdd
+
+def spawn_a(alien,marge_gauche,marge_haute):
+    taille  = alien.get_taille()
+    aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1])
+    return aliend
+
+def crea_projectile():
+    tir = proj.Projectile(540,700)
+    return tir
+def spawn_p(tir):
+    taille = tir.get_taille()
+    projectile = canvas.create_rectangle(width/2 - taille[0]/2 , height-taille[1]-cv.Vaisseau().get_taille()[1], width/2 + taille[0]/2 , height-cv.Vaisseau().get_taille()[1], fill = "black" )
+    if True:
+        root.after(15,canvas.move(projectile,0,-20))
+        #a finir
+    return projectile
 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
 def mvmt_vaisseau_droite(event,vaisseau):
     canvas.move(vaisseau,10,0)
 def mvmt_vaisseau_gauche(event,vaisseau):
     canvas.move(vaisseau,-10,0)
-def mvmt_vaisseau_tire(event):
+def mvmt_vaisseau_tire():
     print('espace')
 
 
 
+def projectile():
+    spawn_p(crea_projectile())
+    mvmt_vaisseau_tire()
+
+
     
 '''variables'''
+#taille écran
 width = 1080
 height = 720
+<<<<<<< HEAD
 nombre_alien = 5
 
+=======
+nb_alien=11
+esp_tot_alien=width-2*20-nb_alien*crea_alien().get_taille()[0]
+esp_par_alien=int(esp_tot_alien/nb_alien)
+>>>>>>> 4dd339c8178928a47fa8f38d56c50a3a92ebcbdd
 
 
 
@@ -57,7 +102,6 @@ root = tk.Tk()
 root.title("Space Invader")
 
 
-
 frame1 = tk.Frame(root)
 frame1.pack(side = 'left')
 
@@ -65,12 +109,28 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
+<<<<<<< HEAD
 objvaisseau = spawn_vaisseau(crea_vaisseau(),width,height)
+=======
+esp=0
+for i in range(nb_alien):
+    objalien = spawn_a(crea_alien(), 20+esp, 20)
+    esp+=esp_par_alien+ca.Alien().get_taille()[0]
+    if i == 0:
+        x1=20
+        y1=20
+    if i == nb_alien-1:
+        x2=x1+esp-esp_par_alien
+        y2=20+ca.Alien().get_taille()[1]
+
+objvaisseau = spawn_v(crea_vaisseau(),width,height)
+rec = canvas.create_rectangle(x1,y1,x2,y2)
+>>>>>>> 4dd339c8178928a47fa8f38d56c50a3a92ebcbdd
 canvas.pack()
+
 
 score_label = tk.Label(frame2, text = "score : 100")
 score_label.pack()
-
 
 vie_label = tk.Label(frame2, text = "vie = 3")
 vie_label.pack()
@@ -85,7 +145,11 @@ quitter.pack()
 
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau))
 root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau))
+<<<<<<< HEAD
 root.bind("<space>",mvmt_vaisseau_tire)
     
+=======
+root.bind("<space>", lambda _ : projectile())
+>>>>>>> 4dd339c8178928a47fa8f38d56c50a3a92ebcbdd
 
 root.mainloop()

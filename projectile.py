@@ -7,34 +7,29 @@ date de création: 20 décembre 2021
 class Projectile():
     
     def __init__(self,pX,pY):
-        self.vitesse=40
-        self.puissance=30
+        self.puissance=1
+        self.dy = 0.2
         self.position_x=pX
         self.position_y=pY
         self.taille_x=3
-        self.taille_y=3
+        self.taille_y=20
     
     def get_taille(self):
         return [self.taille_x, self.taille_y]
         
     def bolPos(self):
-        bol=False
-        if (self.position_y) >= 720 :
-            bol = True
-        return bol
+        blo=False
+        if self.position_y < 0 :
+            blo = True
+        return blo
     
-    def getPos(self):
-        return self.position_y
+    def getPuissance(self):
+        return self.puissance
     
     def deplacement(self):
-        blo=False
+        blo = self.bolPos()
         while blo != True:
-            b = Projectile(self.position_x, self.position_y)
-            blo = b.bolPos()
-            self.position_y -= self.vitesse
-            blo = b.bolPos()
-            print(blo, '\npos y ', self.position_y)
-        
+            self.position_y = self.position_y - self.vitesse
+            blo = self.bolPos()
+            print(blo, self.position_y)
         return self.position_y
-
-        #le détruire
