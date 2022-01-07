@@ -7,22 +7,29 @@ Created on Tue Dec 14 09:38:01 2021
 
 import tkinter as tk
 import classVaisseau as cv
-
+import classAlien as al
 
 
 
 '''ces deux fonctions recupèrent un objet de la classe vaisseau et l'initialisent dans la canvas'''
-def creavaisseau():
+def crea_vaisseau():
     ship = cv.Vaisseau()
     return ship
 
-def spawn(ship,width,height):
+def spawn_vaisseau(ship,width,height):
     taille = ship.get_taille()
     vaisseau = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "pink" )
     return vaisseau
 
-
-
+'''fonction pour les aliens'''
+def crea_alien():
+    alien = al.Alien()
+    return alien
+def spawn_alien(alien,nombre_alien,width,height):
+    taille = al.get_taille()
+    alien = canvas.create_rectangle(width/3 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "blue" )
+    return alien
+        
 
 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
@@ -39,6 +46,7 @@ def mvmt_vaisseau_tire(event):
 '''variables'''
 width = 1080
 height = 720
+nombre_alien = 5
 
 
 
@@ -57,7 +65,7 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
-objvaisseau = spawn(creavaisseau(),width,height)
+objvaisseau = spawn_vaisseau(crea_vaisseau(),width,height)
 canvas.pack()
 
 score_label = tk.Label(frame2, text = "score : 100")
@@ -78,5 +86,6 @@ quitter.pack()
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau))
 root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau))
 root.bind("<space>",mvmt_vaisseau_tire)
+    
 
 root.mainloop()
