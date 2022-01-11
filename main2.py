@@ -10,6 +10,7 @@ import classVaisseau as cv
 import classAlien as ca
 import classProjectile as proj
 import block as bl
+from PIL import Image, ImageTk
 
 
 '''ces deux fonctions recupèrent un objet de la classe vaisseau et l'initialisent dans la canvas'''
@@ -112,6 +113,8 @@ nb_block = 4
 esp_tot_block = width-2 * 20-nb_alien * crea_block().get_taille()[0]
 esp_par_block = int(esp_tot_block/nb_block)
 
+
+
 '''fenètre tkinter et main programme'''
 root = tk.Tk()
 root.title('Projet Space Invader')
@@ -119,10 +122,15 @@ root.title('Projet Space Invader')
 frame1 = tk.Frame(root)
 frame1.pack(side = 'left')
 
+'''importation des photos a utiliser dans le programme'''
+backImg=Image.open("imges/bg3.jpeg")
+
+bckPhoto=ImageTk.PhotoImage(backImg,master=frame1)
 frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
+background=canvas.create_image(540,360,image=bckPhoto)
 
 objblock = spawn_b(block)
 
