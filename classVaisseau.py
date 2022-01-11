@@ -28,14 +28,12 @@ class Vaisseau():
     
     def deplacer_droite(self):
         "Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au bout de la fenêtre"
-        if self.position_x  < 1080:
-            self.position_x += self.vitesse
+        self.position_x += 10
         return self.position_x
     
     def deplacer_gauche(self):
         "Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au début de la fenêtre"
-        if self.position_x > 0:
-            self.position_x -= self.vitesse
+        self.position_x -= 10
         return self.position_x
     
     def perdre_vie(self):
