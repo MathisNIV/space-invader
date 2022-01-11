@@ -5,7 +5,9 @@ Date de création : 14 décembre 2021
 """
     
 class Vaisseau():
-    
+    """
+    classe joueur
+    """
     def __init__(self):
         self.taille_x = 100
         self.taille_y = 30
@@ -16,11 +18,22 @@ class Vaisseau():
         self.vitesse = 5
         
     def get_taille(self):
+        """
+        getteur qui retourne la taille du vaisseau
+
+        Returns:
+            [liste]: retourne la taille en x [int] et en y [int]
+        """
         return [self.taille_x,self.taille_y]
 
       
     def get_position(self):
-        "fonction get qui permet d'initialiser le vaisseau en bas et au milieu de la fenêtre"
+        """
+        getteur qui permet d'initialiser le vaisseau en bas et au milieu de la fenêtre
+
+        Returns:
+            [liste]: retourne les coordonnées x [int] et y [int]
+        """
         return [self.position_x , self.position_y]
     
     def get_vie(self):
@@ -28,20 +41,22 @@ class Vaisseau():
     
     def deplacer_droite(self):
         "Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au bout de la fenêtre"
-        if self.position_x  < 1080:
-            self.position_x += self.vitesse
+        self.position_x += 10
         return self.position_x
     
     def deplacer_gauche(self):
         "Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au début de la fenêtre"
-        if self.position_x > 0:
-            self.position_x -= self.vitesse
+        self.position_x -= 10
         return self.position_x
     
     def perdre_vie(self):
         """
-        rajouter différents dégats en paramètre si besoin
+        Fonction permettant de rajouter différents dégats 
+
+        Returns:
+            self.vie [int]: retourne la santé du joueur, si celle-ci est nulle, la partie est terminée
         """
+        
         if self.vie > 0:
             self.vie -= 30
         else:

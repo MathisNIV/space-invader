@@ -36,7 +36,7 @@ def spawn_a(alien,marge_gauche,marge_haute):
 
 
 def crea_projectile():
-    tir = proj.Projectile(540,700)
+    tir = proj.Projectile(538,698,542,702)
     return tir
 def spawn_p(tir):
     taille = tir.get_taille()

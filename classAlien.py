@@ -8,6 +8,9 @@ Created on Tue Dec 14 09:38:17 2021
 import time as t
 
 class Alien():
+    """
+    classe régissant le fonctionnement de chaque alien
+    """
     def __init__(self):
         self.taille_x = 30
         self.taille_y = 30
@@ -21,6 +24,12 @@ class Alien():
         self.taille = self.x1 - self.x0
 
     def get_taille(self):
+        """
+        getteur qui permet d'accéder à la taille de chaque alien
+
+        Returns:
+            [liste]: [description]
+        """
         return [self.taille_x,self.taille_y]
 
     def deplacement(self):
