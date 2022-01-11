@@ -9,6 +9,7 @@ import tkinter as tk
 import classVaisseau as cv 
 import classAlien as ca
 import classProjectile as proj
+import block as bl
 
 
 '''ces deux fonctions recupèrent un objet de la classe vaisseau et l'initialisent dans la canvas'''
@@ -33,6 +34,16 @@ def spawn_a(alien,marge_gauche,marge_haute):
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1])
     return aliend
 
+
+def crea_block():
+    block = bl.Block(540, 600)
+    return block
+
+def spawn_b(block):
+    taille = block.get_taille()
+    position = block.get_position()
+    blockd = canvas.create_rectangle(position[0], position[1], position[0] + taille [0], position[1] + taille[1])
+    return blockd
 
 
 def crea_projectile():
@@ -65,6 +76,8 @@ def invasion(esp):
             y2=20+ca.Alien().get_taille()[1]
     return x1,y1,x2,y2
 
+
+
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
 def mvmt_vaisseau_droite(event,vaisseau):
     canvas.move(vaisseau,10,0)  
@@ -79,14 +92,20 @@ def mvmt_vaisseau_tire():
 ship = crea_vaisseau()
 alien = crea_alien()
 projectile = crea_projectile()
+block = crea_block()
 
 #taille écran
 width = 1080
 height = 720
-nb_alien=11
-esp_tot_alien=width-2*20-nb_alien*crea_alien().get_taille()[0]
-esp_par_alien=int(esp_tot_alien/nb_alien)
-esp=0
+nb_alien = 11
+esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
+esp_par_alien = int(esp_tot_alien/nb_alien)
+esp = 0
+
+
+nb_block = 4
+esp_tot_block = width-2 * 20-nb_alien * crea_block().get_taille()[0]
+esp_par_block = int(esp_tot_block/nb_block)
 
 '''fenètre tkinter et programme'''
 root = tk.Tk()
@@ -100,8 +119,11 @@ frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
 
+objblock = spawn_b(block)
+
 objvaisseau = spawn_v(ship,width,height)
 rec = canvas.create_rectangle(invasion(esp))
+
 canvas.pack()
 
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau))

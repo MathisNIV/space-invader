@@ -4,12 +4,12 @@ Auteur : Rodolphe Lajugie
 Date de création : 14 décembre 2021
 """
 
-class block():
+class Block():
     
     def __init__(self,pX,pY):
-        self.vie=1
-        self.taille_x=1
-        self.taille_y=1
+        self.vie=3
+        self.taille_x=30
+        self.taille_y=30
         self.position_x=pX
         self.position_y=pY
         
