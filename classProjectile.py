@@ -21,7 +21,7 @@ class Projectile():
         self.position_y1=dy1
         self.position_x2=dx2
         self.position_y2=dy2
-        self.taille_x=3
+        self.taille_x=4
         self.taille_y=20
     
     def get_taille(self):
