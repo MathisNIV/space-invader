@@ -40,14 +40,24 @@ def spawn_a(alien,marge_gauche,marge_haute):
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = "white")
     return aliend
 
-def apocalypse(rep,dx):
+def apocalypse(rep,dx,k):
     #condition droite
-    if rep[-1][0][3]<1000 or rep[0][0][0]>10:
-        for i in rep:  
-            canvas.move(i[1],dx,0)
-            rep[-1][0][3] += 10
-    dx = dx*-1
-    root.after(500,apocalypse,rep,dx)
+    print(rep)
+    if rep[-1][0][2]>=1080 or rep[0][0][0]<=0:
+        dx = dx*-1
+        k += 1 
+    for i in rep:  
+        canvas.move(i[1],dx,0)
+        rep[0][0][0] += dx
+        rep[-1][0][2] += dx
+    if k%2 == 0 and k!=0:
+        for h in rep:  
+            canvas.move(h[1],0,10)
+            h[0][1] += 10
+            h[0][3] += 10
+            k=0
+    # if rep[-1][0][3]
+    root.after(500,apocalypse,rep,dx,k)
 # def crea_block():
 #     block = bl.Block(540, 600)
 #     return block
@@ -64,10 +74,9 @@ def apocalypse(rep,dx):
 def invasion(esp):
     pos_al = []
     for i in range(nb_alien):
-        obj_alien = spawn_a(alien, 20+esp, 20)
-        esp+=esp_par_alien+ca.Alien().get_taille()[0]
+        obj_alien = spawn_a(alien, 5+esp, 20)
+        esp+=esp_par_alien
         pos_al.append([canvas.coords(obj_alien),obj_alien])
-    print(pos_al)
     return pos_al
 
 
@@ -90,7 +99,6 @@ def fire(projectile,projectiled,ship):
         canvas.move(projectiled,0,-10)
         projectile.get_position()[1] -= 10
         root.after(10,fire,projectile,projectiled,ship)
-     
 
 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
@@ -117,9 +125,13 @@ taille = ship.get_taille()
 
 nb_alien = 11
 esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
+print(esp_tot_alien)
 esp_par_alien = int(esp_tot_alien/nb_alien)
 esp = 0
-dx = 1
+
+#initialisation mouvement alien
+dx = 10
+k = 0
 
 
 # nb_block = 4
@@ -157,7 +169,7 @@ background=canvas.create_image(540,360,image=bckPhoto)
 
 objvaisseau = spawn_v(ship,width,height)
 
-apocalypse(invasion(esp),dx)
+apocalypse(invasion(esp),dx,k)
  
 canvas.pack()
 
