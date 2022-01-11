@@ -19,8 +19,13 @@ def crea_vaisseau():
     return ship
 
 def spawn_v(ship,width,height):
+    
+    vaisseauImg=Image.open('imges/vaisseau.png')
+    vaisseauimg=vaisseauImg.resize((100,30))
+    vaisseauPhoto=ImageTk.PhotoImage(vaisseauimg,master=frame1)
+    
     taille = ship.get_taille()
-    vaisseau = canvas.create_rectangle(width/2 - taille[0]/2, height-taille[1], width/2 + taille[0]/2, height, fill = "pink" )
+    vaisseau = canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=vaisseauPhoto)
     return vaisseau
 
 '''ces deux fonctions recupèrent un objet de la class alien et l'initialisent dans la canvas'''
@@ -109,6 +114,7 @@ projectile = crea_projectile()
 #taille écran
 width = 1080
 height = 720
+taille = ship.get_taille()
 
 nb_alien = 11
 esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
@@ -129,15 +135,21 @@ root.title('Projet Space Invader')
 frame1 = tk.Frame(root)
 frame1.pack(side = 'left')
 
-'''importation des photos a utiliser dans le programme'''
+'''importation de l'image de fond '''
 backImg=Image.open("imges/bg3.jpeg")
 
 bckPhoto=ImageTk.PhotoImage(backImg,master=frame1)
 frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
+''' importation de de l'image du vaisseau'''
+vaisseauImg=Image.open('imges/vaisseau.png')
+vaisseauimg=vaisseauImg.resize((100,30))
+vaisseauPhoto=ImageTk.PhotoImage(vaisseauimg,master=frame1)
+
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
 background=canvas.create_image(540,360,image=bckPhoto)
+vaisImg=canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=vaisseauPhoto)
 
 # objblock = spawn_b(block)
 
