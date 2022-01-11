@@ -54,7 +54,7 @@ class Vaisseau():
         '''
         Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au bout de la fenêtre
         Returns:
-        self.position_x [int]: retourne l'abscisse du vaisseau après le déplacement
+            self.position_x [int]: retourne l'abscisse du vaisseau après le déplacement
         '''
         self.position_x -= 10
         return self.position_x

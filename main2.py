@@ -21,11 +21,13 @@ def crea_vaisseau():
 def spawn_v(ship,width,height):
     
     vaisseauImg=Image.open('imges/vaisseau.png')
-    vaisseauimg=vaisseauImg.resize((100,30))
+    vaisseauimg=vaisseauImg.resize((150,70))
     vaisseauPhoto=ImageTk.PhotoImage(vaisseauimg,master=frame1)
     
     taille = ship.get_taille()
-    vaisseau = canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=vaisseauPhoto)
+    vaisseau = canvas.create_image(width/2+50 - taille[0]/2, height-taille[1]-20, image=vaisseauPhoto)
+    canvas.sdfgsdfsdfdgf = vaisseauPhoto
+
     return vaisseau
 
 '''ces deux fonctions recupèrent un objet de la class alien et l'initialisent dans la canvas'''
@@ -141,13 +143,15 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 ''' importation de de l'image du vaisseau'''
-vaisseauImg=Image.open('imges/vaisseau.png')
+'''vaisseauImg=Image.open('imges/vaisseau.png')
 vaisseauimg=vaisseauImg.resize((100,30))
 vaisseauPhoto=ImageTk.PhotoImage(vaisseauimg,master=frame1)
 
+vaisImg=canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=vaisseauPhoto)
+'''
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
 background=canvas.create_image(540,360,image=bckPhoto)
-vaisImg=canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=vaisseauPhoto)
+
 
 # objblock = spawn_b(block)
 
