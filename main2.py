@@ -28,13 +28,23 @@ def crea_alien():
     alien = ca.Alien()
     return alien
 
-def spawn_a(alien,marge_gauche,marge_haute):
+def spawn_a(alien,marge_gauche,marge_haute): 
     taille  = alien.get_taille()
-    aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1])
+    aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = "white")
     return aliend
 
-# def apocalyspe(aliend):
-    
+def apocalypse(rep):
+    #condition gauche
+    if rep[-1][0][3]<1000:
+        for i in rep:  
+            canvas.move(i[1],10,0)
+            rep[-1][0][3] += 10
+        root.after(500,apocalypse,rep)
+    elif rep[0][0][0]>10:
+        for i in rep:  
+            canvas.move(i[1],-10,0)
+            rep[0][0][0] -= 10
+        root.after(500,apocalypse,rep)
 # def crea_block():
 #     block = bl.Block(540, 600)
 #     return block
@@ -51,15 +61,9 @@ def spawn_a(alien,marge_gauche,marge_haute):
 def invasion(esp):
     pos_al = []
     for i in range(nb_alien):
-        objalien = spawn_a(alien, 20+esp, 20)
+        obj_alien = spawn_a(alien, 20+esp, 20)
         esp+=esp_par_alien+ca.Alien().get_taille()[0]
-        if i == 0:
-            x1=20
-            y1=20
-        if i == nb_alien-1:
-            x2=x1+esp-esp_par_alien
-            y2=20+ca.Alien().get_taille()[1]
-    pos_al.append([x1,y1,x2,y2])
+        pos_al.append([canvas.coords(obj_alien),obj_alien])
     print(pos_al)
     return pos_al
 
@@ -74,7 +78,7 @@ def spawn_p(tir,ship):
     tir.position_y1 = ship.get_position()[1]-taille[1]
     tir.position_x2 = ship.get_position()[0]+taille[0]/2
     tir.position_y2 = ship.get_position()[1]
-    projectiled = canvas.create_rectangle(tir.position_x1, tir.position_y1, tir.position_x2, tir.position_y2, fill = "black" )
+    projectiled = canvas.create_rectangle(tir.position_x1, tir.position_y1, tir.position_x2, tir.position_y2, fill = "white" )
     return projectiled
 
 '''gère le mouvement du projectile une fois qu'on a appuyé sur la touche espace'''
@@ -138,8 +142,9 @@ background=canvas.create_image(540,360,image=bckPhoto)
 # objblock = spawn_b(block)
 
 objvaisseau = spawn_v(ship,width,height)
-rec = canvas.create_rectangle(invasion(esp))
 
+apocalypse(invasion(esp))
+ 
 canvas.pack()
 
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau, ship))
