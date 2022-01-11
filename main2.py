@@ -38,18 +38,14 @@ def spawn_a(alien,marge_gauche,marge_haute):
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = "white")
     return aliend
 
-def apocalypse(rep):
-    #condition gauche
-    if rep[-1][0][3]<1000:
+def apocalypse(rep,dx):
+    #condition droite
+    if rep[-1][0][3]<1000 or rep[0][0][0]>10:
         for i in rep:  
-            canvas.move(i[1],10,0)
+            canvas.move(i[1],dx,0)
             rep[-1][0][3] += 10
-        root.after(500,apocalypse,rep)
-    elif rep[0][0][0]>10:
-        for i in rep:  
-            canvas.move(i[1],-10,0)
-            rep[0][0][0] -= 10
-        root.after(500,apocalypse,rep)
+    dx = dx*-1
+    root.after(500,apocalypse,rep,dx)
 # def crea_block():
 #     block = bl.Block(540, 600)
 #     return block
@@ -90,6 +86,7 @@ def spawn_p(tir,ship):
 def fire(projectile,projectiled,ship):  
     if projectile.get_position()[1]>100:
         canvas.move(projectiled,0,-10)
+        projectile.get_position()[1] -= 10
         root.after(10,fire,projectile,projectiled,ship)
      
 
@@ -120,6 +117,7 @@ nb_alien = 11
 esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
 esp_par_alien = int(esp_tot_alien/nb_alien)
 esp = 0
+dx = 1
 
 
 # nb_block = 4
@@ -155,7 +153,7 @@ vaisImg=canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=va
 
 objvaisseau = spawn_v(ship,width,height)
 
-apocalypse(invasion(esp))
+apocalypse(invasion(esp),dx)
  
 canvas.pack()
 
