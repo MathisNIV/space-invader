@@ -18,6 +18,7 @@ height = 360
 
 backImg=Image.open("imges/background.jpeg")
 vaisseauImg=Image.open("imges/vaisseau.png")
+imgvaisseau=vaisseauImg.resize((150,150))
 
 frame1 = tk.Frame(root)
 frame1.pack()
@@ -26,13 +27,13 @@ label1 = tk.Label(frame1, text="BIENVENUE DANS SPACE INVADER",fg ='black')
 label1.pack()
 
 bckPhoto=ImageTk.PhotoImage(backImg,master=frame1)
-vaisseauPhoto=ImageTk.PhotoImage(vaisseauImg,master=frame1)
+vaisseauPhoto=ImageTk.PhotoImage(imgvaisseau,master=frame1)
 
 canvas = tk.Canvas(frame1, width = width , height = height, bg="ivory")
 canvas.pack()
 
 background=canvas.create_image(270,180,image=bckPhoto)
-vaisseau=canvas.create_image(270,50,image=vaisseauPhoto)
+vaisseau=canvas.create_image(270,180,image=vaisseauPhoto)
 
 
 label2 = tk.Label(frame1, text="LANCER UNE PARTIE",fg ='black')
