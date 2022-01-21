@@ -49,22 +49,25 @@ def spawn_a(alien,marge_gauche,marge_haute):
     return aliend
 
 def apocalypse(rep,dx,k):
-    #condition droite 
-    if rep[-1][0][2]>=1080 or rep[0][0][0]<=0:
-        dx = dx*-1
+    #condition droite
+    j=0
+    if (rep[-1][0][2] >= 1080)  or (rep[0][0][0] <= 0):
+        dx = dx* (-1)
         k += 1 
     for i in rep:  
+        print(i)
         canvas.move(i[1],dx,0)
-        rep[0][0][0] += dx
-        rep[-1][0][2] += dx
+        rep[j][0][0] += dx
+        rep[j][0][2] += dx
+        j+=1
     if k%2 == 0 and k!=0:
         for h in rep:  
-            canvas.move(h[1],0,10)
+            canvas.move(h[1],0,30)
             h[0][1] += 10
             h[0][3] += 10
             k=0
     # if rep[-1][0][3]
-    root.after(500,apocalypse,rep,dx,k)
+    root.after(300,apocalypse,rep,dx,k)
     
     
 # def crea_block():
@@ -142,7 +145,7 @@ taille = ship.get_taille()
 
 nb_alien = 11
 esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
-esp_par_alien = int(esp_tot_alien/nb_alien)
+esp_par_alien = int(esp_tot_alien/nb_alien)+20
 esp = 0
 
 #initialisation mouvement alien
