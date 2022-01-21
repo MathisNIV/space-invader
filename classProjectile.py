@@ -21,7 +21,7 @@ class Projectile():
         self.position_y1=dy1
         self.position_x2=dx2
         self.position_y2=dy2
-        self.taille_x=3
+        self.taille_x=4
         self.taille_y=20
     
     def get_taille(self):
@@ -47,6 +47,14 @@ class Projectile():
 
     
     def deplacement(self):
+        """
+        fonction contenant une boucle qui permet d'incrémenter la position duu projectile afin que celui se déplace 
+        jusqu'à ce qu'il touche quelque chose
+        
+        Returns:
+           new position [int]: nouvelle position qui correspond à celle d'vant moins le déplaceent élémentaire
+        """
+
         self.position_y1 = self.position_y1 - self.dy
         self.position_y2 = self.position_y2 - self.dy
         return [self.position_x1,self.position_y1,self.position_x2,self.position_y2]

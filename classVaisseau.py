@@ -40,12 +40,22 @@ class Vaisseau():
         return self.vie
     
     def deplacer_droite(self):
-        "Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au bout de la fenêtre"
+        
+        '''
+        Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au bout de la fenêtre
+
+        Returns:
+            self.position_x [int]: retourne l'abscisse du vaisseau après le déplacement
+        '''
         self.position_x += 10
         return self.position_x
     
     def deplacer_gauche(self):
-        "Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au début de la fenêtre"
+        '''
+        Permet au vaisseau de se déplacer de sa vitesse si celui-ci n'est pas au bout de la fenêtre
+        Returns:
+            self.position_x [int]: retourne l'abscisse du vaisseau après le déplacement
+        '''
         self.position_x -= 10
         return self.position_x
     
