@@ -96,7 +96,7 @@ def mvmt_vaisseau_gauche(event,vaisseau,ship):
 ship = crea_vaisseau()
 alien = crea_alien() 
 projectile = crea_projectile()
-block = crea_block()
+blockd = crea_block()
 
 #taille écran
 width = 1080
@@ -124,7 +124,7 @@ frame2.pack(side = 'right')
 
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
 
-objblock = spawn_b(block)
+objblock = spawn_b(blockd)
 
 objvaisseau = spawn_v(ship,width,height)
 rec = canvas.create_rectangle(invasion(esp))
