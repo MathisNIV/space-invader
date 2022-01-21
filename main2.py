@@ -46,12 +46,11 @@ def spawn_a(alien,marge_gauche,marge_haute):
     #canvas.jesaispasquoiecrire = alienPhoto
     return aliend
 
-def lancer_une_partie():
-    import main2 as main
-    return main
+def lancer_une_partie2():
+    root.destroy()
+    import Acceuil as acc
+    return acc
 
-#def click():
- #   root.bind('<click>', lancer_une_partie())
 
 def apocalypse(rep,dx,k):
     #condition droite
@@ -81,7 +80,7 @@ def apocalypse(rep,dx,k):
             PartieFin.pack()
             btnquit=tk.Button(window, text='abandonner', command=window.destroy)
             btnquit.pack()
-            btngame=tk.Button(window, text='réessayer', command=lancer_une_partie)
+            btngame=tk.Button(window, text='réessayer', command=lancer_une_partie2)
             btngame.pack()    
       
 
@@ -210,7 +209,11 @@ var = tk.StringVar()
 L2score = tk.Label(frame2,textvariable = var)
 L2score.pack()
 
-ng = tk.Button(frame2, text = 'Nouvelle Partie', command = lancer_une_partie)
+ng = tk.Button(frame2, text = 'Nouvelle Partie', command = lancer_une_partie2)
+ng.pack()
+
+quitter = tk.Button(frame2, text = 'Quitter', command = root.destroy)
+quitter.pack()
 
 
 ''' importation de de l'image du vaisseau'''
