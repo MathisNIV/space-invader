@@ -44,7 +44,7 @@ def spawn_a(alien,marge_gauche,marge_haute):
     taille  = alien.get_taille()
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = "white")
     #print(canvas.coords(aliend))
-#    marge_gauche + taille[0]/2, marge_haute + taille[1]/2, image=alienPhoto
+    #marge_gauche + taille[0]/2, marge_haute + taille[1]/2, image=alienPhoto
     #canvas.jesaispasquoiecrire = alienPhoto
     return aliend
 
@@ -106,15 +106,16 @@ def spawn_p(tir,ship):
     return projectiled
 
 '''gère le mouvement du projectile une fois qu'on a appuyé sur la touche espace'''
-def fire(projectile,projectiled,ship):
+def fire(projectile,projectiled,ship,pos_al):
     if canvas.coords(projectiled)[1]>=0:
         canvas.move(projectiled,0,-10)
         projectile.get_position()[1] -= 10
-        root.after(10,fire,projectile,projectiled,ship)
-    # elif canvas.coords(projectiled)[1] == canvas.coords(aliend)[3]:
-    #     score +=10
-    #     canvas.delete(aliend)
-    #     canvas.delete(projectiled)
+        root.after(10,fire,projectile,projectiled,ship,pos_al)
+    # for i in pos_al:
+    #     if canvas.coords(pos_al[i][1]) == canvas.coords(projectiled)[1]:
+    #     #score +=10
+    #         canvas.delete(pos_al[i][1])
+    #         canvas.delete(projectiled)
     else:
         canvas.delete(projectiled)
 
@@ -152,7 +153,6 @@ esp = 0
 dx = 10
 k = 0
 
-
 # nb_block = 4
 # esp_tot_block = width-2 * 20-nb_alien * crea_block().get_taille()[0]
 # esp_par_block = int(esp_tot_block/nb_block)
@@ -187,13 +187,13 @@ background=canvas.create_image(540,360,image=bckPhoto)
 # objblock = spawn_b(block)
 
 objvaisseau = spawn_v(ship,width,height)
-
-apocalypse(invasion(esp),dx,k)
+pos_al = invasion(esp)
+apocalypse(pos_al,dx,k)
  
 canvas.pack()
 
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau, ship))
 root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau, ship))
-root.bind("<space>", lambda _ : fire(projectile,spawn_p(projectile,ship),ship))
+root.bind("<space>", lambda _ : fire(projectile,spawn_p(projectile,ship),ship,pos_al))
 
 root.mainloop()
