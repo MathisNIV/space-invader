@@ -15,7 +15,7 @@ Si l’Alien, à force de descendre, arrive suffisamment bas pour toucher le vai
 vaisseau est détruit et la partie est perdue.
 + alien
 Permettre maintenant aux Aliens de tirer verticalement,
-3 vies
+3 vies ==> pas interresasant car les alien ne tirent pas
 bouclier (ilot)
 ennemi bonus
 scoreboard

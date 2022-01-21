@@ -6,6 +6,7 @@ Created on Fri Jan  7 19:17:28 2022
 """
 
 
+from curses import window
 import tkinter as tk
 from turtle import color
 import classVaisseau as cv 
@@ -32,16 +33,16 @@ def spawn_v(ship,width,height):
     return vaisseau
 
 '''ces deux fonctions recupèrent un objet de la class alien et l'initialisent dans la canvas'''
-def crea_alien():
-    alien = ca.Alien()
+def crea_alien(pv, taillex, tailley):
+    alien = ca.Alien(pv, taillex,tailley)
     return alien
 
-def spawn_a(alien,marge_gauche,marge_haute): 
+def spawn_a(alien,marge_gauche,marge_haute, color): 
     #alienimage=Image.open('imges/alienfin.png')
     #alienIMG=alienimage.resize((30,30))
     #alienPhoto = ImageTk.PhotoImage(alienIMG)
     taille  = alien.get_taille()
-    aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = "white")
+    aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = color)
     #marge_gauche + taille[0]/2, marge_haute + taille[1]/2, image=alienPhoto
     #canvas.jesaispasquoiecrire = alienPhoto
     return aliend
@@ -65,9 +66,9 @@ def apocalypse(rep,dx,k):
             j+=1
         if k%2 == 0 and k!=0:
             for h in rep:  
-                canvas.move(h[1],0,30)
-                h[0][1] += 30
-                h[0][3] += 30
+                canvas.move(h[1],0,3*dx)
+                h[0][1] += dx
+                h[0][3] += dx 
                 k=0
         if rep[0][0][1] <= 670:
             root.after(50,apocalypse,rep,dx,k)
@@ -98,11 +99,11 @@ def apocalypse(rep,dx,k):
 
 '''placement de plusieurs alien dans la canva'''
 
-def invasion(esp):
+def invasion(esp, color, esp_par,alien,nalien):
     pos_al = []
-    for i in range(nb_alien):
-        obj_alien = spawn_a(alien, 5+esp, 20)
-        esp+=esp_par_alien
+    for i in range(nalien):
+        obj_alien = spawn_a(alien, 5+esp, 20,color)
+        esp+=esp_par
         pos_al.append([canvas.coords(obj_alien),obj_alien])
     return pos_al
 
@@ -131,7 +132,7 @@ def fire(projectile,projectiled,ship,pos_al):
         canvas.delete(projectiled)
         
 def extermination(projectiled,pos_al):
-    global score
+    global score, var
     for i in range(len(pos_al)):        
         if canvas.coords(pos_al[i][1])[3] == canvas.coords(projectiled)[1] and canvas.coords(pos_al[i][1])[0]<canvas.coords(projectiled)[0]<canvas.coords(pos_al[i][1])[2]:
             canvas.delete(pos_al[i][1])
@@ -139,6 +140,33 @@ def extermination(projectiled,pos_al):
             canvas.delete(projectiled)
             score+=10
             var.set(score)
+            
+    if canvas.coords(pos_al2[0][1])[3] == canvas.coords(projectiled)[1] and canvas.coords(pos_al2[0][1])[0]<canvas.coords(projectiled)[0]<canvas.coords(pos_al2[0][1])[2]:
+        alien2.pvAlien()
+        print(alien2.getVie())
+        score +=10
+        var.set(score)
+        if alien2.getVie() == 0:
+            canvas.delete(pos_al2[0][1])
+            pos_al2.pop(0)
+            canvas.delete(projectiled)
+            score+=20
+            var.set(score)
+            
+    if len(pos_al) == 0 and len(pos_al2)==0:
+        root.destroy()
+        window=tk.Tk()
+        window.title('Partie Gagnée')
+        txt= tk.Label(window, text="Vous avez survécu à l'invasion")
+        txt.pack(expand='yes')
+        Lscore1 = tk.Label(window,text = 'score : ')
+        Lscore1.pack()
+        var = tk.StringVar()
+        var.set(score)
+        Lscore2 = tk.Label(window,textvariable = var)
+        Lscore2.pack()
+        btquitter=tk.Button(window, text='Quitter', command = window.destroy)
+        btquitter.pack(expand='yes')
         
 
  
@@ -157,8 +185,9 @@ def mvmt_vaisseau_gauche(event,vaisseau,ship):
 '''variables'''
 #élements
 ship = crea_vaisseau()
-alien = crea_alien() 
+alien = crea_alien(1,30,30) 
 projectile = crea_projectile()
+alien2=crea_alien(2, 20,20)
 
 #blockd = crea_block()
 
@@ -171,12 +200,18 @@ height = 720
 taille = ship.get_taille()
 
 nb_alien = 10
-esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
+nb_alien2 = 1
+esp_tot_alien = width-2 * 20-nb_alien * alien.get_taille()[0]
+esp_tot_alien2 = width-2 * 20-nb_alien2 * alien2.get_taille()[0]
+
 esp_par_alien = int(esp_tot_alien/nb_alien)+20
+esp_par_alien2 = int(esp_tot_alien2/nb_alien2)-300
 esp = 0
+esp2=0
 
 #initialisation mouvement alien
-dx = 10
+dx1 = 10
+dx2 = 12
 k = 0
 
 
@@ -235,9 +270,10 @@ background=canvas.create_image(540,360,image=bckPhoto)
 
 
 objvaisseau = spawn_v(ship,width,height)
-pos_al = invasion(esp)
-apocalypse(pos_al,dx,k)
- 
+pos_al = invasion(esp, 'white',esp_par_alien, alien, nb_alien)
+apocalypse(pos_al,dx1,k)
+pos_al2=invasion(esp2, 'red',esp_par_alien2,alien2, nb_alien2)
+apocalypse(pos_al2, dx2, k)
 canvas.pack()
 
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau, ship))

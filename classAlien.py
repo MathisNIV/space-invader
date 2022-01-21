@@ -11,10 +11,10 @@ class Alien():
     """
     classe régissant le fonctionnement de chaque alien
     """
-    def __init__(self):
-        self.taille_x = 30
-        self.taille_y = 30
-        self.pv = 3
+    def __init__(self,pv,taillex, tailley):
+        self.taille_x = taillex
+        self.taille_y = tailley
+        self.pv =pv
         self.x0 = 0
         self.y0 = 0 
         self.x1 = self.x0 + 20
@@ -36,6 +36,8 @@ class Alien():
     #     if 
     
     def pvAlien(self):
-        self.pv = -1
+        self.pv -= 1
         return self.pv
     
+    def getVie(self):
+        return self.pv
