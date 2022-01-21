@@ -5,6 +5,7 @@ Created on Fri Jan  7 19:17:28 2022
 @author: mathi
 """
 
+
 import tkinter as tk
 from turtle import color
 import classVaisseau as cv 
@@ -49,6 +50,13 @@ def spawn_a(alien,marge_gauche,marge_haute):
     #canvas.jesaispasquoiecrire = alienPhoto
     return aliend
 
+def lancer_une_partie():
+    import main2 as main
+    return main
+
+#def click():
+ #   root.bind('<click>', lancer_une_partie())
+
 def apocalypse(rep,dx,k):
     #condition droite
         j=0
@@ -83,9 +91,10 @@ def apocalypse(rep,dx,k):
             PartieFin.pack()
             btnquit=tk.Button(window, text='abandonner', command=window.destroy)
             btnquit.pack()
-            btngame=tk.Button(window, text='réessayer', command='')
+            btngame=tk.Button(window, text='réessayer', command=lancer_une_partie)
             btngame.pack()    
       
+
     
 # def crea_block():
 #     block = bl.Block(540, 600)

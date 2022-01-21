@@ -25,7 +25,7 @@ menu a choix multiple
 
 # Projet Space invader  de Maximilien Rémilleux, Mathis Niveau et Rodolphe Lajugie dans le cadre du cours CS-DEV à CPE Lyon
 
-Fichier à lancer : main2.py
+Fichier à lancer : Accueil.py
 lien github : https://github.com/MathisNIV/space-invader
 
 piste d'améliorations:
@@ -33,4 +33,7 @@ piste d'améliorations:
 - ajouter un png pour le tir et animations d'explosion lorsqu'un tir fait mouche 
 - créer différents niveaux
 - ajouter des bonus qui tomberaient (comme casse brique)
-- 
+
+
+source de bugs:
+-Il n'est possible de relancer une partie qu'une seule fois
