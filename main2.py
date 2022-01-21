@@ -49,8 +49,7 @@ def spawn_a(alien,marge_gauche,marge_haute):
     return aliend
 
 def apocalypse(rep,dx,k):
-    #condition droite
-    print(rep)
+    #condition droite 
     if rep[-1][0][2]>=1080 or rep[0][0][0]<=0:
         dx = dx*-1
         k += 1 
@@ -82,7 +81,6 @@ def apocalypse(rep,dx,k):
 '''placement de plusieurs alien dans la canva'''
 
 def invasion(esp):
-
     pos_al = []
     for i in range(nb_alien):
         obj_alien = spawn_a(alien, 5+esp, 20)
@@ -98,28 +96,36 @@ def crea_projectile():
 def spawn_p(tir,ship):
     taille = tir.get_taille()
     tir.position_x1 = ship.get_position()[0]-taille[0]/2
-    tir.position_y1 = ship.get_position()[1]-taille[1]
+    tir.position_y1 = ship.get_position()[1]-taille[1]-50
     tir.position_x2 = ship.get_position()[0]+taille[0]/2
-    tir.position_y2 = ship.get_position()[1]
+    tir.position_y2 = ship.get_position()[1]-50
     projectiled = canvas.create_rectangle(tir.position_x1, tir.position_y1, tir.position_x2, tir.position_y2, fill = "white" )
     return projectiled
 
 '''gère le mouvement du projectile une fois qu'on a appuyé sur la touche espace'''
-def fire(projectile,projectiled,ship):  
-    if projectile.get_position()[1]>100:
+def fire(projectile,projectiled,ship):
+    if canvas.coords(projectiled)[1]>=0:
         canvas.move(projectiled,0,-10)
         projectile.get_position()[1] -= 10
         root.after(10,fire,projectile,projectiled,ship)
+    # elif canvas.coords(projectiled)[1] == canvas.coords(aliend)[3]:
+    #     score +=10
+    #     canvas.delete(aliend)
+    #     canvas.delete(projectiled)
+    else:
+        canvas.delete(projectiled)
 
 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
 def mvmt_vaisseau_droite(event,vaisseau,ship):
-    canvas.move(vaisseau,10,0)
-    ship.deplacer_droite()
+    if canvas.coords(vaisseau)[0]<1020:
+        canvas.move(vaisseau,10,0)
+        ship.deplacer_droite()
     
 def mvmt_vaisseau_gauche(event,vaisseau,ship):
-    canvas.move(vaisseau,-10,0)
-    ship.deplacer_gauche()
+    if canvas.coords(vaisseau)[0]>50:
+        canvas.move(vaisseau,-10,0)
+        ship.deplacer_gauche()
     
 
 '''variables'''
@@ -136,7 +142,6 @@ taille = ship.get_taille()
 
 nb_alien = 11
 esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
-print(esp_tot_alien)
 esp_par_alien = int(esp_tot_alien/nb_alien)
 esp = 0
 
