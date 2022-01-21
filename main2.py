@@ -196,4 +196,5 @@ root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau, ship))
 root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau, ship))
 root.bind("<space>", lambda _ : fire(projectile,spawn_p(projectile,ship),ship,pos_al))
 
+
 root.mainloop()
