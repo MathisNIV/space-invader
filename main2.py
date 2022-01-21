@@ -13,7 +13,6 @@ import classProjectile as proj
 import block as bl
 from PIL import Image, ImageTk
 
-
 '''ces deux fonctions recupèrent un objet de la classe vaisseau et l'initialisent dans la canvas'''
 def crea_vaisseau():
     ship = cv.Vaisseau()
@@ -40,11 +39,8 @@ def spawn_a(alien,marge_gauche,marge_haute):
     #alienimage=Image.open('imges/alienfin.png')
     #alienIMG=alienimage.resize((30,30))
     #alienPhoto = ImageTk.PhotoImage(alienIMG)
-    
-    
     taille  = alien.get_taille()
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = "white")
-    #print(canvas.coords(aliend))
     #marge_gauche + taille[0]/2, marge_haute + taille[1]/2, image=alienPhoto
     #canvas.jesaispasquoiecrire = alienPhoto
     return aliend
@@ -56,22 +52,16 @@ def apocalypse(rep,dx,k):
             dx = dx* (-1)
             k += 1 
         for i in rep:  
-            #print(i)
             canvas.move(i[1],dx,0)
             rep[j][0][0] += dx
             rep[j][0][2] += dx
             j+=1
         if k%2 == 0 and k!=0:
             for h in rep:  
-                canvas.move(h[1],0,400)
-                h[0][1] += 400
-                h[0][3] += 400
+                canvas.move(h[1],0,30)
+                h[0][1] += 30
+                h[0][3] += 30
                 k=0
-    # if rep[-1][0][3]
-#    for val in range(nb_alien):
-#        print('ok')
-#        if rep[val][0][1] >= 300:
-#            print('fin')
         if rep[0][0][1] <= 670:
             root.after(50,apocalypse,rep,dx,k)
         else:
@@ -120,28 +110,35 @@ def spawn_p(tir,ship):
     tir.position_x2 = ship.get_position()[0]+taille[0]/2
     tir.position_y2 = ship.get_position()[1]-50
     projectiled = canvas.create_rectangle(tir.position_x1, tir.position_y1, tir.position_x2, tir.position_y2, fill = "white" )
-    return projectiled
+    return projectiled 
 
 '''gère le mouvement du projectile une fois qu'on a appuyé sur la touche espace'''
 def fire(projectile,projectiled,ship,pos_al):
     if canvas.coords(projectiled)[1]>=0:
         canvas.move(projectiled,0,-10)
         projectile.get_position()[1] -= 10
+        extermination(projectiled,pos_al)
         root.after(10,fire,projectile,projectiled,ship,pos_al)
-    # for i in pos_al:
-    #     if canvas.coords(pos_al[i][1]) == canvas.coords(projectiled)[1]:
-    #     #score +=10
-    #         canvas.delete(pos_al[i][1])
-    #         canvas.delete(projectiled)
     else:
         canvas.delete(projectiled)
+        
+def extermination(projectiled,pos_al):
+    global score
+    for i in range(len(pos_al)):        
+        if canvas.coords(pos_al[i][1])[3] == canvas.coords(projectiled)[1] and canvas.coords(pos_al[i][1])[0]<canvas.coords(projectiled)[0]<canvas.coords(pos_al[i][1])[2]:
+            canvas.delete(pos_al[i][1])
+            pos_al.pop(i)
+            canvas.delete(projectiled)
+            score+=10
+            var.set(score)
+        
 
-
+ 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
 def mvmt_vaisseau_droite(event,vaisseau,ship):
     if canvas.coords(vaisseau)[0]<1020:
         canvas.move(vaisseau,10,0)
-        ship.deplacer_droite()
+        ship.deplacer_droite(  )
     
 def mvmt_vaisseau_gauche(event,vaisseau,ship):
     if canvas.coords(vaisseau)[0]>50:
@@ -162,10 +159,10 @@ projectile = crea_projectile()
 
 #taille écran
 width = 1080
-height = 720
+height = 720 
 taille = ship.get_taille()
 
-nb_alien = 11
+nb_alien = 10
 esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
 esp_par_alien = int(esp_tot_alien/nb_alien)+20
 esp = 0
@@ -173,6 +170,10 @@ esp = 0
 #initialisation mouvement alien
 dx = 10
 k = 0
+
+
+score = 0
+
 
 # nb_block = 4
 # esp_tot_block = width-2 * 20-nb_alien * crea_block().get_taille()[0]
@@ -193,6 +194,15 @@ backImg=Image.open("imges/bg3.jpeg")
 bckPhoto=ImageTk.PhotoImage(backImg,master=frame1)
 frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
+
+Lscore = tk.Label(frame2,text = 'score : ')
+Lscore.pack()
+var = tk.StringVar()
+L2score = tk.Label(frame2,textvariable = var)
+L2score.pack()
+
+ng = tk.Button(frame2, text = 'Nouvelle Partie', command = lancer_une_partie)
+
 
 ''' importation de de l'image du vaisseau'''
 vaisseauImg=Image.open('imges/vaisseau.png')

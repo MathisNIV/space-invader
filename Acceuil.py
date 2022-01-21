@@ -45,7 +45,7 @@ def lancer_une_partie():
 boutton1 = tk.Button(frame1, text = "JOUER",fg ='white',bg ='black', relief = 'raised', command=lancer_une_partie)
 boutton1.pack()
 
-boutton2 = tk.Button(frame1, text = "Qitter",fg ='white',bg ='black', relief = 'raised', command=root.destroy)
+boutton2 = tk.Button(frame1, text = "Quitter",fg ='white',bg ='black', relief = 'raised', command=root.destroy)
 boutton2.pack()
 
 root.mainloop()
