@@ -36,28 +36,44 @@ def crea_alien():
     return alien
 
 def spawn_a(alien,marge_gauche,marge_haute): 
+    #alienimage=Image.open('imges/alienfin.png')
+    #alienIMG=alienimage.resize((30,30))
+    #alienPhoto = ImageTk.PhotoImage(alienIMG)
+    
+    
     taille  = alien.get_taille()
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = "white")
+    #print(canvas.coords(aliend))
+#    marge_gauche + taille[0]/2, marge_haute + taille[1]/2, image=alienPhoto
+    #canvas.jesaispasquoiecrire = alienPhoto
     return aliend
 
 def apocalypse(rep,dx,k):
     #condition droite
-    print(rep)
-    if rep[-1][0][3]>=1080 or rep[0][0][1]<=0:
-        dx = dx*-1
+
+    j=0
+    if (rep[-1][0][2] >= 1080)  or (rep[0][0][0] <= 0):
+        dx = dx* (-1)
+
         k += 1 
     for i in rep:  
+        print(i)
         canvas.move(i[1],dx,0)
-        rep[0][0][1] += dx
-        rep[-1][0][3] += dx
+
+        rep[j][0][0] += dx
+        rep[j][0][2] += dx
+        j+=1
+
     if k%2 == 0 and k!=0:
         for h in rep:  
-            canvas.move(h[1],0,10)
+            canvas.move(h[1],0,30)
             h[0][1] += 10
             h[0][3] += 10
             k=0
     # if rep[-1][0][3]
-    root.after(500,apocalypse,rep,dx,k)
+    root.after(300,apocalypse,rep,dx,k)
+    
+    
 # def crea_block():
 #     block = bl.Block(540, 600)
 #     return block
@@ -87,28 +103,36 @@ def crea_projectile():
 def spawn_p(tir,ship):
     taille = tir.get_taille()
     tir.position_x1 = ship.get_position()[0]-taille[0]/2
-    tir.position_y1 = ship.get_position()[1]-taille[1]
+    tir.position_y1 = ship.get_position()[1]-taille[1]-50
     tir.position_x2 = ship.get_position()[0]+taille[0]/2
-    tir.position_y2 = ship.get_position()[1]
+    tir.position_y2 = ship.get_position()[1]-50
     projectiled = canvas.create_rectangle(tir.position_x1, tir.position_y1, tir.position_x2, tir.position_y2, fill = "white" )
     return projectiled
 
 '''gère le mouvement du projectile une fois qu'on a appuyé sur la touche espace'''
-def fire(projectile,projectiled,ship):  
-    if projectile.get_position()[1]>100:
+def fire(projectile,projectiled,ship):
+    if canvas.coords(projectiled)[1]>=0:
         canvas.move(projectiled,0,-10)
         projectile.get_position()[1] -= 10
         root.after(10,fire,projectile,projectiled,ship)
+    # elif canvas.coords(projectiled)[1] == canvas.coords(aliend)[3]:
+    #     score +=10
+    #     canvas.delete(aliend)
+    #     canvas.delete(projectiled)
+    else:
+        canvas.delete(projectiled)
 
 
 '''fonction detection touche clavier qui apelle une focntion de mouvement du vaisseau'''
 def mvmt_vaisseau_droite(event,vaisseau,ship):
-    canvas.move(vaisseau,10,0)
-    ship.deplacer_droite()
+    if canvas.coords(vaisseau)[0]<1020:
+        canvas.move(vaisseau,10,0)
+        ship.deplacer_droite()
     
 def mvmt_vaisseau_gauche(event,vaisseau,ship):
-    canvas.move(vaisseau,-10,0)
-    ship.deplacer_gauche()
+    if canvas.coords(vaisseau)[0]>50:
+        canvas.move(vaisseau,-10,0)
+        ship.deplacer_gauche()
     
 
 '''variables'''
@@ -129,8 +153,7 @@ taille = ship.get_taille()
 
 nb_alien = 11
 esp_tot_alien = width-2 * 20-nb_alien * crea_alien().get_taille()[0]
-print(esp_tot_alien)
-esp_par_alien = int(esp_tot_alien/nb_alien)
+esp_par_alien = int(esp_tot_alien/nb_alien)+20
 esp = 0
 
 #initialisation mouvement alien
@@ -159,13 +182,14 @@ frame2 = tk.Frame(root)
 frame2.pack(side = 'right')
 
 ''' importation de de l'image du vaisseau'''
-'''vaisseauImg=Image.open('imges/vaisseau.png')
+vaisseauImg=Image.open('imges/vaisseau.png')
 vaisseauimg=vaisseauImg.resize((100,30))
 vaisseauPhoto=ImageTk.PhotoImage(vaisseauimg,master=frame1)
 
-vaisImg=canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=vaisseauPhoto)
-'''
+
+
 canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
+vaisImg=canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=vaisseauPhoto)
 background=canvas.create_image(540,360,image=bckPhoto)
 
 
@@ -184,5 +208,6 @@ canvas.pack()
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau, ship))
 root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau, ship))
 root.bind("<space>", lambda _ : fire(projectile,spawn_p(projectile,ship),ship))
+
 
 root.mainloop()
