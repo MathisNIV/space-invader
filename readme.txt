@@ -21,3 +21,16 @@ ennemi bonus
 scoreboard
 transformer alien en image
 menu a choix multiple
+
+
+# Projet Space invader  de Maximilien Rémilleux, Mathis Niveau et Rodolphe Lajugie dans le cadre du cours CS-DEV à CPE Lyon
+
+Fichier à lancer : main2.py
+lien github : https://github.com/MathisNIV/space-invader
+
+piste d'améliorations:
+- ajouter un png voir différents pour les aliens 
+- ajouter un png pour le tir et animations d'explosion lorsqu'un tir fait mouche 
+- créer différents niveaux
+- ajouter des bonus qui tomberaient (comme casse brique)
+- 

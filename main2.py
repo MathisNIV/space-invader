@@ -6,6 +6,7 @@ Created on Fri Jan  7 19:17:28 2022
 """
 
 import tkinter as tk
+from turtle import color
 import classVaisseau as cv 
 import classAlien as ca
 import classProjectile as proj
@@ -50,25 +51,41 @@ def spawn_a(alien,marge_gauche,marge_haute):
 
 def apocalypse(rep,dx,k):
     #condition droite
-    j=0
-    if (rep[-1][0][2] >= 1080)  or (rep[0][0][0] <= 0):
-        dx = dx* (-1)
-        k += 1 
-    for i in rep:  
-        print(i)
-        canvas.move(i[1],dx,0)
-        rep[j][0][0] += dx
-        rep[j][0][2] += dx
-        j+=1
-    if k%2 == 0 and k!=0:
-        for h in rep:  
-            canvas.move(h[1],0,30)
-            h[0][1] += 10
-            h[0][3] += 10
-            k=0
+        j=0
+        if (rep[-1][0][2] >= 1080)  or (rep[0][0][0] <= 0):
+            dx = dx* (-1)
+            k += 1 
+        for i in rep:  
+            #print(i)
+            canvas.move(i[1],dx,0)
+            rep[j][0][0] += dx
+            rep[j][0][2] += dx
+            j+=1
+        if k%2 == 0 and k!=0:
+            for h in rep:  
+                canvas.move(h[1],0,400)
+                h[0][1] += 400
+                h[0][3] += 400
+                k=0
     # if rep[-1][0][3]
-    root.after(300,apocalypse,rep,dx,k)
-    
+#    for val in range(nb_alien):
+#        print('ok')
+#        if rep[val][0][1] >= 300:
+#            print('fin')
+        if rep[0][0][1] <= 670:
+            root.after(50,apocalypse,rep,dx,k)
+        else:
+            frame1.destroy()
+            window=tk.Frame(root)
+            window.pack()
+            
+            PartieFin = tk.Label(window, text='Vous avez perdu, vous êtes vraiement nul !', fg='white', bg = 'black',font=('Helvetica', 24))
+            PartieFin.pack()
+            btnquit=tk.Button(window, text='abandonner', command=window.destroy)
+            btnquit.pack()
+            btngame=tk.Button(window, text='réessayer', command='')
+            btngame.pack()    
+      
     
 # def crea_block():
 #     block = bl.Block(540, 600)
