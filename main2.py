@@ -36,8 +36,16 @@ def crea_alien():
     return alien
 
 def spawn_a(alien,marge_gauche,marge_haute): 
+    #alienimage=Image.open('imges/alienfin.png')
+    #alienIMG=alienimage.resize((30,30))
+    #alienPhoto = ImageTk.PhotoImage(alienIMG)
+    
+    
     taille  = alien.get_taille()
     aliend = canvas.create_rectangle(marge_gauche,marge_haute,marge_gauche+taille[0], marge_haute + taille[1],fill = "white")
+    #print(canvas.coords(aliend))
+#    marge_gauche + taille[0]/2, marge_haute + taille[1]/2, image=alienPhoto
+    #canvas.jesaispasquoiecrire = alienPhoto
     return aliend
 
 def apocalypse(rep,dx,k):
@@ -58,6 +66,8 @@ def apocalypse(rep,dx,k):
             k=0
     # if rep[-1][0][3]
     root.after(500,apocalypse,rep,dx,k)
+    
+    
 # def crea_block():
 #     block = bl.Block(540, 600)
 #     return block
@@ -72,6 +82,7 @@ def apocalypse(rep,dx,k):
 '''placement de plusieurs alien dans la canva'''
 
 def invasion(esp):
+
     pos_al = []
     for i in range(nb_alien):
         obj_alien = spawn_a(alien, 5+esp, 20)
