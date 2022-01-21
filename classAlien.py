@@ -36,7 +36,7 @@ class Alien():
     #     if 
     
     def pvAlien(self):
-        self.pv -= 1
+        self.pv = self.pv - 1
         return self.pv
     
     def getVie(self):

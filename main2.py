@@ -66,7 +66,7 @@ def apocalypse(rep,dx,k):
             j+=1
         if k%2 == 0 and k!=0:
             for h in rep:  
-                canvas.move(h[1],0,3*dx)
+                canvas.move(h[1],0,dx)
                 h[0][1] += dx
                 h[0][3] += dx 
                 k=0
@@ -118,11 +118,20 @@ def spawn_p(tir,ship):
     tir.position_y1 = ship.get_position()[1]-taille[1]-50
     tir.position_x2 = ship.get_position()[0]+taille[0]/2
     tir.position_y2 = ship.get_position()[1]-50
-    projectiled = canvas.create_rectangle(tir.position_x1, tir.position_y1, tir.position_x2, tir.position_y2, fill = "white" )
+    projectiled = canvas.create_rectangle(tir.position_x1, tir.position_y1, tir.position_x2, tir.position_y2, fill = "green" )
     return projectiled 
 
 '''gère le mouvement du projectile une fois qu'on a appuyé sur la touche espace'''
 def fire(projectile,projectiled,ship,pos_al):
+    if canvas.coords(projectiled)[1]>=0:
+        canvas.move(projectiled,0,-10)
+        projectile.get_position()[1] -= 10
+        extermination(projectiled,pos_al)
+        root.after(10,fire,projectile,projectiled,ship,pos_al)
+    else:
+        canvas.delete(projectiled)
+        
+def fire2(projectile,projectiled,ship,pos_al):
     if canvas.coords(projectiled)[1]>=0:
         canvas.move(projectiled,0,-10)
         projectile.get_position()[1] -= 10
@@ -143,7 +152,7 @@ def extermination(projectiled,pos_al):
             
     if canvas.coords(pos_al2[0][1])[3] == canvas.coords(projectiled)[1] and canvas.coords(pos_al2[0][1])[0]<canvas.coords(projectiled)[0]<canvas.coords(pos_al2[0][1])[2]:
         alien2.pvAlien()
-        print(alien2.getVie())
+        print('LA VIE EST DE ', alien2.getVie())
         score +=10
         var.set(score)
         if alien2.getVie() == 0:
@@ -174,7 +183,7 @@ def extermination(projectiled,pos_al):
 def mvmt_vaisseau_droite(event,vaisseau,ship):
     if canvas.coords(vaisseau)[0]<1020:
         canvas.move(vaisseau,10,0)
-        ship.deplacer_droite(  )
+        ship.deplacer_droite()
     
 def mvmt_vaisseau_gauche(event,vaisseau,ship):
     if canvas.coords(vaisseau)[0]>50:
@@ -199,13 +208,13 @@ width = 1080
 height = 720 
 taille = ship.get_taille()
 
-nb_alien = 10
-nb_alien2 = 1
+nb_alien = 1
+nb_alien2 = 10
 esp_tot_alien = width-2 * 20-nb_alien * alien.get_taille()[0]
 esp_tot_alien2 = width-2 * 20-nb_alien2 * alien2.get_taille()[0]
 
 esp_par_alien = int(esp_tot_alien/nb_alien)+20
-esp_par_alien2 = int(esp_tot_alien2/nb_alien2)-300
+esp_par_alien2 = int(esp_tot_alien2/nb_alien2)-20
 esp = 0
 esp2=0
 
@@ -279,6 +288,6 @@ canvas.pack()
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau, ship))
 root.bind("<Left>", lambda e : mvmt_vaisseau_gauche(e, objvaisseau, ship))
 root.bind("<space>", lambda _ : fire(projectile,spawn_p(projectile,ship),ship,pos_al))
-
+root.bind("<space>", lambda _ : fire2(projectile,spawn_p(projectile,ship),ship,pos_al2))
 
 root.mainloop()
