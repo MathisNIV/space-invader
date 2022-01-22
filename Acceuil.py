@@ -16,7 +16,7 @@ racine.title('Projet Space Invader')
 width = 540
 height = 360
 
-backImg=Image.open("imges/background.jpeg")
+backImg=Image.open("imges/bg3.jpeg")
 vaisseauImg=Image.open("imges/vaisseau.png")
 imgvaisseau=vaisseauImg.resize((150,150))
 

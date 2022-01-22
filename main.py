@@ -208,7 +208,7 @@ def extermination(projectiled):
         projectiled (objet): objet de la classe projectile
         pos_al (liste): liste contenant les coordonnées des aliens 
     """
-    global score, var, pos_al ## pos_al2
+    global score, var, pos_al , pos_al2
     for i in range(len(pos_al)):        
         if canvas.coords(pos_al[i][1])[3] == canvas.coords(projectiled)[1] and canvas.coords(pos_al[i][1])[0]<canvas.coords(projectiled)[0]<canvas.coords(pos_al[i][1])[2]:
             canvas.delete(pos_al[i][1])
@@ -217,26 +217,26 @@ def extermination(projectiled):
             score+=10
             var.set(score)
     
-#    for i in range(len(pos_al2)):        
-#        if canvas.coords(pos_al2[i][1])[3] == canvas.coords(projectiled)[1] and canvas.coords(pos_al2[i][1])[0]<canvas.coords(projectiled)[0]<canvas.coords(pos_al2[i][1])[2]:
-#            alien2.pvAlien()
-#            print('vie de lalien', alien2.pvAlien())
-#            score +=10
-#            var.set(score)
-#            if alien2.getVie() == 0:
-#                canvas.delete(pos_al2[i][1])
-#                pos_al2.pop(i)
-#                canvas.delete(projectiled)
-#                score+=20
-#                var.set(score)
+    for i in range(len(pos_al2)):        
+        if canvas.coords(pos_al2[i][1])[3] == canvas.coords(projectiled)[1] and canvas.coords(pos_al2[i][1])[0]<canvas.coords(projectiled)[0]<canvas.coords(pos_al2[i][1])[2]:
+            alien2.pvAlien()
+            print('vie de lalien', alien2.pvAlien())
+            score +=10
+            var.set(score)
+            if alien2.getVie() == 0:
+                canvas.delete(pos_al2[i][1])
+                pos_al2.pop(i)
+                canvas.delete(projectiled)
+                score+=20
+                var.set(score)
             
-    if len(pos_al) == 0: #and len(pos_al2)==0:
+    if len(pos_al) == 0 and len(pos_al2)==0:
         root.destroy()
         window=tk.Tk()
         window.title('Partie Gagnée')
         txt= tk.Label(window, text="Vous avez survécu à l'invasion")
         txt.pack(expand='yes')
-        Lscore1 = tk.Label(window,text = 'score : ')
+        Lscore1 = tk.Label(window,text = 'Score : ')
         Lscore1.pack()
         var = tk.StringVar()
         var.set(score)
@@ -264,17 +264,14 @@ def mvmt_vaisseau_gauche(event,vaisseau,ship):
         ship.deplacer_gauche()
     
 
-'''variables'''
-#élements
+'''variables élements'''
 ship = crea_vaisseau()
 alien = crea_alien(1,30,30) 
 projectile = crea_projectile()
-#alien2=crea_alien(2, 20,20)
+alien2=crea_alien(2, 20,20)
 
 #blockd = crea_block()
-
 # block = crea_block()
-
 
 '''taille de la fenêtre'''
 width = 1080
@@ -282,29 +279,24 @@ height = 720
 taille = ship.get_taille()
 
 nb_alien = 10
-#nb_alien2 = 10
+nb_alien2 = 1
 esp_tot_alien = width-2 * 20-nb_alien * alien.get_taille()[0]
-#esp_tot_alien2 = width-2 * 20-nb_alien2 * alien2.get_taille()[0]
+esp_tot_alien2 = width-2 * 20-nb_alien2 * alien2.get_taille()[0]
 
 esp_par_alien = int(esp_tot_alien/nb_alien)+20
-#esp_par_alien2 = int(esp_tot_alien2/nb_alien2)-20
+esp_par_alien2 = int(esp_tot_alien2/nb_alien2)-20
 esp = 0
-#esp2=0
+esp2=0
 
 '''initialisation mouvement alien'''
 dx1 = 10
-#dx2 = 12
+dx2 = 12
 k = 0
-
-
 score = 0
-
 
 # nb_block = 4
 # esp_tot_block = width-2 * 20-nb_alien * crea_block().get_taille()[0]
 # esp_par_block = int(esp_tot_block/nb_block)
-
-
 
 '''fenètre tkinter et main programme'''
 root = tk.Tk()
@@ -344,18 +336,15 @@ canvas = tk.Canvas(frame1, width = width, height = height, bg="ivory")
 vaisImg=canvas.create_image(width/2+50 - taille[0]/2, height-taille[1], image=vaisseauPhoto)
 background=canvas.create_image(540,360,image=bckPhoto)
 
-
-
 #objblock = spawn_b(blockd)
-
 # objblock = spawn_b(block)
 
 
 objvaisseau = spawn_v(ship,width,height)
 pos_al = invasion(esp, 'white',esp_par_alien, alien, nb_alien)
 apocalypse(pos_al,dx1,k)
-#pos_al2=invasion(esp2, 'red',esp_par_alien2,alien2, nb_alien2)
-#apocalypse(pos_al2, dx2, k)
+pos_al2=invasion(esp2, 'red',esp_par_alien2,alien2, nb_alien2)
+apocalypse(pos_al2, dx2, k)
 canvas.pack()
 
 root.bind("<Right>",lambda e : mvmt_vaisseau_droite(e, objvaisseau, ship))
@@ -372,6 +361,6 @@ file.add_command(label='quitter', command=root.destroy)
 file.add_command(label = 'à propos', command = op)
 menu.add_cascade(label='fichier', menu=file)
 
-#configurer notre fenêtre
+'''configurer notre fenêtre'''
 root.config(menu=menu)
 root.mainloop()

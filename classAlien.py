@@ -5,7 +5,7 @@ Created on Tue Dec 14 09:38:17 2021
 
 @author: maximilienremillieux
 """
-import time as t
+
 
 class Alien():
     """
