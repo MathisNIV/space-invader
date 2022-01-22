@@ -281,7 +281,7 @@ width = 1080
 height = 720 
 taille = ship.get_taille()
 
-nb_alien = 1
+nb_alien = 10
 #nb_alien2 = 10
 esp_tot_alien = width-2 * 20-nb_alien * alien.get_taille()[0]
 #esp_tot_alien2 = width-2 * 20-nb_alien2 * alien2.get_taille()[0]
