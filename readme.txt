@@ -37,3 +37,4 @@ piste d'améliorations:
 
 source de bugs:
 -Il n'est possible de relancer une partie qu'une seule fois
+-Les lignes en commentaire grâce au # sont des lignes de codes misent en suspend car nous n'avons pas eu le temps de les terminer 

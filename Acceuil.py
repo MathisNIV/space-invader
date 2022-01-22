@@ -41,8 +41,8 @@ label2.pack()
 
 def lancer_une_partie():
     racine.destroy()
-    import main2 as main2
-    return main2
+    import main as ma
+    return ma
 
 boutton1 = tk.Button(frame1, text = "JOUER",fg ='white',bg ='black', relief = 'raised', command=lancer_une_partie)
 boutton1.pack()

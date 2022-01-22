@@ -1,0 +1,1 @@
+Jeu développé par Maximilien Rémilleux, Rodolphe LAJUGIE et Mathis Niveau grâce à l'interface graphique Tkinter dan le cadre de nos études à CPE Lyon. Nous apprécierons votre gentillesse dans la notation :)
